@@ -13,6 +13,13 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
+	<distributionManagement>
+	  <site>
+		<id>nexus</id>
+		<url>http://localhost:8081/nexus/content/repositories/idwtest/</url>
+	  </site>
+	</distributionManagement>
 
     <dependencies>
         <dependency>
