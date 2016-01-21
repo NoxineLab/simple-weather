@@ -15,10 +15,15 @@
   </properties>
   
 	<distributionManagement>
-	  <site>
+	<site>
 		<id>nexus</id>
 		<url>http://localhost:8081/nexus/content/repositories/idwtest/</url>
-	  </site>
+	</site>
+	<repository>
+	  <id>nexus</id>
+	  <name>Nexus Staging Repo</name>
+	  <url>http://localhost:8081/nexus/service/local/staging/deploy/maven2</url>
+	</repository>
 	</distributionManagement>
 
     <dependencies>
@@ -73,6 +78,32 @@
 				<testFailureIgnore>true</testFailureIgnore>
 			</configuration>
 		</plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-deploy-plugin</artifactId>
+      <configuration>
+        <skip>true</skip>
+      </configuration>
+    </plugin>
+    <plugin>
+      <groupId>org.sonatype.plugins</groupId>
+      <artifactId>nexus-staging-maven-plugin</artifactId>
+      <executions>
+        <execution>
+          <id>default-deploy</id>
+          <phase>deploy</phase>
+          <goals>
+            <goal>deploy</goal>
+          </goals>
+        </execution>
+      </executions>
+      <configuration>
+        <serverId>nexus</serverId>
+        <nexusUrl>http://localhost:8081/nexus/</nexusUrl>
+        <!-- explicit matching using the staging profile id -->
+        <stagingProfileId>25deda5ab508</stagingProfileId>
+      </configuration>
+    </plugin>
 	</plugins>
   </build>
 </project>
